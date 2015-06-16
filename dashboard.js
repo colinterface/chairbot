@@ -58,10 +58,14 @@ app.controller('PrefsController', function($scope, DashboardService) {
 
 app.controller('DashboardController', function($scope, DashboardService) {
   $scope.data = {}
+  $scope.numSessions = 0;
 
   $scope.getUserData = function() {
     DashboardService.getUserData().then(function(data) {
-      $scope.data = data.data;
+      if (data.data.sessions.length > $scope.numSessions) {
+        $scope.data = data.data;
+        $scope.numSessions = data.data.sessions.length;
+      }
     });
   };
 
@@ -70,17 +74,20 @@ app.controller('DashboardController', function($scope, DashboardService) {
 });
 
 app.controller('SessionController', function($scope, DashboardService) {
-  $scope.note = '';
-  $scope.rate = 3;
+  // $scope.note = $scope.$parent.data.sessions[$index].text || '';
+  // $scope.rate = $scope.$parent.data.sessions[$index].rating || 3;
+  // $scope.note = session.text;
   $scope.max = 5;
 
-  $scope.saveNote = function(newNote, $index) {
-    if (newNote !== '') {
-      DashboardService.saveNote(newNote, $index)
+  $scope.saveNote = function(session) {
+    if (session.text !== '') {
+      var index = $scope.data.sessions.indexOf(session)
+      DashboardService.saveNote(session.text, index)
     }
   }
 
-  $scope.saveRating = function(rate, $index) {
-    DashboardService.saveRating(rate, $index)
+  $scope.saveRating = function(session) {
+    var index = $scope.data.sessions.indexOf(session)
+    DashboardService.saveRating(session.rating, index)
   }
 });

@@ -56,7 +56,9 @@ Session.prototype.end = function() {
     end: this.end,
     // use time diff to calculate length of session in seconds
     // keep only the seconds with no object to keep things simple
-    duration: timediff(this.start, this.end, 'S').seconds
+    duration: timediff(this.start, this.end, 'S').seconds,
+    text: '',
+    rating: 3
   }, function(error, response, body) {
     console.log(response.statusCode);
   });
