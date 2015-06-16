@@ -20,14 +20,20 @@
         <hr>
         <div collapse="isCollapsed">
           <div class="well well-lg">
-            <form ng-submit="saveUserPrefs(); isCollapsed = !isCollapsed">
-              <label for="limit">limit</label>
-              <input type="number" name="limit" ng-model="limit">
-              <label for="spacing">reminder spacing (seconds)</label>
-              <input type="number" name="spacing" ng-model="spacing">
-              <label for="duration">reminder duration (milliseconds)</label>
-              <input type="number" name="duration" ng-model="duration">
-              <button type="submit">save</button>
+            <form class="form-inline" ng-submit="saveUserPrefs(); isCollapsed = !isCollapsed">
+              <div class="form-group">
+                <label for="limit">limit (minutes)</label>
+                <input class="form-control" type="number" name="limit" ng-model="limit">
+              </div>
+              <div class="form-group">
+                <label for="spacing">reminder spacing (seconds)</label>
+                <input class="form-control" type="number" name="spacing" ng-model="spacing">
+              </div>
+              <div class="form-group">
+                <label for="duration">reminder duration (milliseconds)</label>
+                <input class="form-control" type="number" name="duration" ng-model="duration">
+              </div>
+              <button type="submit" class="btn btn-default">save</button>
             </form>
           </div>
         </div>

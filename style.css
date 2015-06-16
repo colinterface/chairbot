@@ -2,8 +2,14 @@ body {
   font-family: 'Lato', sans-serif;
 }
 
-input {
+/*input {
   display: block;
+}*/
+
+label {
+  padding-left: 20px;
+  padding-right: 10px;
+  font-size: 18px;
 }
 
 .session {

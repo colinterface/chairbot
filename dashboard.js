@@ -75,7 +75,9 @@ app.controller('SessionController', function($scope, DashboardService) {
   $scope.max = 5;
 
   $scope.saveNote = function(newNote, $index) {
-    DashboardService.saveNote(newNote, $index)
+    if (newNote !== '') {
+      DashboardService.saveNote(newNote, $index)
+    }
   }
 
   $scope.saveRating = function(rate, $index) {
