@@ -18,9 +18,9 @@ var userData = {
 }
 
 var userPrefs = {
-  limit: 3,
-  reminderSpacing: 2,
-  reminderDuration: 0.5
+  limit: 25,
+  reminderSpacing: 90,
+  reminderDuration: 250
 };
 
 
@@ -31,10 +31,15 @@ app.post('/sessions', function(request, response) {
   response.status(201).end();
 });
 
-app.put('/sessions', function(request, response) {
+app.put('/sessions/notes', function(request, response) {
   var note = request.body;
   userData.sessions[note.index].text = note.text;
-  userData.sessions[note.index].stars = note.stars;
+  response.status(201).end();
+});
+
+app.put('/sessions/ratings', function(request, response) {
+  var rating = request.body;
+  userData.sessions[rating.index].rating = rating.rating;
   response.status(201).end();
 });
 
@@ -44,6 +49,7 @@ app.get('/sessions', function(request, response) {
 
 app.put('/prefs', function(request, response) {
   var userPrefs = request.body;
+  response.status(201).end();
 });
 
 app.get('/prefs', function(request, response) {

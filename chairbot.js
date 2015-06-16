@@ -8,12 +8,22 @@ var timediff = require('timediff');
 var session;
 var sitting = false;
 
-// times all stored in seconds
+// use default settings until the request comes back
 var settings = {
-  limit: 3,
-  reminderSpacing: 2,
-  reminderDuration: 0.5
+  // minutes
+  limit: 25,
+  // seconds
+  reminderSpacing: 90,
+  // milliseconds
+  reminderDuration: 250
 };
+
+// REMEMBER TO TEST THIS BEFORE THE DEMO!
+client.get('/prefs', function(error, response, body) {
+  settings = JSON.parse(body);
+  console.log(response.statusCode);
+});
+
 
 var intervalObject;
 var led;

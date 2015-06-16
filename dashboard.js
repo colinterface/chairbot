@@ -1,4 +1,4 @@
-var app = angular.module('chairbotDashboard', ['angularMoment'])
+var app = angular.module('chairbotDashboard', ['angularMoment', 'ui.bootstrap']);
 
 app.service('DashboardService', function($http) {
 
@@ -14,29 +14,37 @@ app.service('DashboardService', function($http) {
       return response;
     });
     return promise;
-  }
+  };
 
-  this.saveNotes = function(newNote, stars, $index) {
-    var notes = {
+  this.saveNote = function(newNote, $index) {
+    var note = {
       text: newNote,
-      stars: stars,
       index: $index
     }
-    $http.put('/sessions')
-  }
+    var promise = $http.put('/sessions/notes', note).success(function(response) {
+      return response;
+    });
+    return promise;
+  };
+
+  this.saveRating = function(rating, $index) {
+    var rating = {
+      rating: rating,
+      index: $index
+    }
+    var promise = $http.put('/sessions/ratings', rating).success(function(response) {
+      return response;
+    });
+    return promise;
+  };
 
 })
 
-app.controller('DashboardController', function($scope, DashboardService) {
-  $scope.data = {}
+app.controller('PrefsController', function($scope, DashboardService) {
+  $scope.isCollapsed = true;
   $scope.limit = 25;
   $scope.spacing = 90;
   $scope.duration = 250;
-  $scope.getUserData = function() {
-    DashboardService.getUserData().then(function(data) {
-      $scope.data = data.data;
-    });
-  };
 
   $scope.saveUserPrefs = function() {
     var prefs = {
@@ -46,18 +54,31 @@ app.controller('DashboardController', function($scope, DashboardService) {
     }
     DashboardService.saveUserPrefs(prefs);
   }
+});
+
+app.controller('DashboardController', function($scope, DashboardService) {
+  $scope.data = {}
+
+  $scope.getUserData = function() {
+    DashboardService.getUserData().then(function(data) {
+      $scope.data = data.data;
+    });
+  };
 
   setInterval($scope.getUserData, 1000);
 
 });
 
 app.controller('SessionController', function($scope, DashboardService) {
-  $scope.notes = '';
-  $scope.stars = 3;
+  $scope.note = '';
+  $scope.rate = 3;
+  $scope.max = 5;
 
-  $scope.saveNotes = function(newNote, stars, $index) {
-    // console.log(newNote);
-    // console.log($index);
-    DashboardService.saveNote(newNote, stars, $index)
+  $scope.saveNote = function(newNote, $index) {
+    DashboardService.saveNote(newNote, $index)
+  }
+
+  $scope.saveRating = function(rate, $index) {
+    DashboardService.saveRating(rate, $index)
   }
 });
