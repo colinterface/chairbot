@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>chairbot dashboard</title>
+    <script src="node_modules/angular/angular.min.js" charset="utf-8"></script>
+    <script src="dashboard.js" charset="utf-8"></script>
+  </head>
+  <body ng-app="chairbotDashboard">
+    <div id="dashboard" ng-controller="DashboardController">
+
+      <form id="preferences">
+
+      </form>
+
+      <h1>sessions</h1>
+
+      <div id="sessions">
+        <div class="session" ng-repeat="session in data.sessions">
+        Duration: {{ session.duration }}
+        </div>
+      </div>
+
+    </div>
+
+  </body>
+</html>
