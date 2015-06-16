@@ -31,6 +31,13 @@ app.post('/sessions', function(request, response) {
   response.status(201).end();
 });
 
+app.put('/sessions', function(request, response) {
+  var note = request.body;
+  userData.sessions[note.index].text = note.text;
+  userData.sessions[note.index].stars = note.stars;
+  response.status(201).end();
+});
+
 app.get('/sessions', function(request, response) {
   response.json(userData);
 });

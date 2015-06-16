@@ -6,6 +6,8 @@
     <link href='http://fonts.googleapis.com/css?family=Lato:300,400' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="/style.css">
     <script src="node_modules/angular/angular.min.js" charset="utf-8"></script>
+    <script src="node_modules/moment/min/moment.min.js" charset="utf-8"></script>
+    <script src="node_modules/angular-moment/angular-moment.min.js" charset="utf-8"></script>
     <script src="dashboard.js" charset="utf-8"></script>
   </head>
   <body ng-app="chairbotDashboard">
@@ -25,8 +27,10 @@
       <h1>sessions</h1>
 
       <div id="sessions">
-        <div class="session" ng-repeat="session in data.sessions">
-        ended: {{session.end }}, duration: {{ session.duration }}
+        <div class="session" ng-controller="SessionController" ng-repeat="session in data.sessions track by $index">
+        {{ session.duration }} minute session <span am-time-ago="session.end"></span>
+        <textarea ng-model="newNote" ng-blur="saveNote(newNote, $index)">
+          <h1> {{ notes }} </h1>
         </div>
       </div>
 
