@@ -20,7 +20,8 @@ var settings = {
 
 // REMEMBER TO TEST THIS BEFORE THE DEMO!
 client.get('/prefs', function(error, response, body) {
-  settings = JSON.parse(body);
+  settings = body;
+  console.log(settings);
   console.log(response.statusCode);
 });
 
@@ -58,7 +59,7 @@ Session.prototype.end = function() {
     // keep only the seconds with no object to keep things simple
     duration: timediff(this.start, this.end, 'S').seconds,
     text: '',
-    rating: 3
+    rating: 0
   }, function(error, response, body) {
     console.log(response.statusCode);
   });
@@ -68,7 +69,7 @@ Session.prototype.reminder = function() {
   led.on();
   setTimeout(function() {
     led.off();
-  }, settings.reminderDuration * 1000);
+  }, settings.reminderDuration);
 }
 
 board.on("ready", function() {

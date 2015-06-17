@@ -23,18 +23,18 @@ body {
 }
 */
 
-/*input:focus,
+input:focus,
 select:focus,
 textarea:focus,
-button:focus,*/
+.btn:focus,
 span:focus {
     outline: none;
 }
 
 textarea:focus {
   outline: none;
-  background-color: #ddd;
-  /*color: white;*/
+  background-color: #333;
+  color: white;
 }
 
 .title {
@@ -60,19 +60,53 @@ label {
   font-size: 22px;
   margin-top: 20px;
   margin-bottom: 20px;
+  background-color: #ddd;
+  padding: 20px;
 }
 
 textarea {
   display: block;
   resize: none;
+  padding: 10px;
+  width: 350px;
+  height: 120px;
 }
 
 .rating {
   display: block;
   font-size: 42px;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
   /*color: yellow;*/
 }
 
 #sessions {
-  margin-left: 40px;
+  /*float: left;*/
+  margin-top: 40px;
+  margin-left: 80px;
+  width: 400px;
+}
+
+#day, #week {
+  position: fixed;
+  left: 750px;
+}
+
+#day {
+  font-size: 56px;
+  top: 250px;
+}
+
+#week {
+  font-size: 56px;
+  top: 500px;
+}
+
+#week span {
+  color: #A5243D
+}
+
+#day span {
+  color: #559CAD
 }

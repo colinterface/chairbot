@@ -8,19 +8,19 @@ app.use(express.static(__dirname + '/'));
 // start with some dummy data
 var userData = {
   sessions: [
-    {"start":"2015-06-16T16:48:08.971Z","end":"2015-06-16T16:48:17.484Z","duration":8,"text":"worked on mvp","rating":5},
-    {"start":"2015-06-16T16:49:15.138Z","end":"2015-06-16T16:49:17.648Z","duration":2,"text":"learned some angular","rating":4},
-    {"start":"2015-06-16T16:49:19.655Z","end":"2015-06-16T16:49:23.162Z","duration":3,"text":"watched youtube","rating":3},
-    {"start":"2015-06-16T16:57:25.415Z","end":"2015-06-16T16:57:40.950Z","duration":15,"text":"fell asleep","rating":2}
+    {"start":"2015-06-16T16:48:08.971Z","end":"2015-06-16T16:48:17.484Z","duration":8,"text":"fell asleep","rating":0},
+    {"start":"2015-06-16T16:49:15.138Z","end":"2015-06-16T16:49:17.648Z","duration":2,"text":"watched youtube","rating":0},
+    {"start":"2015-06-16T22:49:19.655Z","end":"2015-06-16T22:49:23.162Z","duration":3,"text":"learned some angular","rating":0},
+    {"start":"2015-06-16T22:57:25.415Z","end":"2015-06-16T22:57:40.950Z","duration":15,"text":"worked on mvp","rating":0}
   ],
   dayTotal: 120,
-  allTimeTotal: 100000,
-  dayStars: 14
+  allTimeTotal: 70000,
+  dayStars: 0
 }
 
 var userPrefs = {
-  limit: 25,
-  reminderSpacing: 90,
+  limit: 3,
+  reminderSpacing: 1,
   reminderDuration: 250
 };
 
@@ -41,6 +41,11 @@ app.put('/sessions/notes', function(request, response) {
 app.put('/sessions/ratings', function(request, response) {
   var rating = request.body;
   userData.sessions[rating.index].rating = rating.rating;
+  var stars = 0;
+  userData.sessions.forEach(function(session) {
+    stars += session.rating;
+  });
+  userData.dayStars = stars;
   response.status(201).end();
 });
 

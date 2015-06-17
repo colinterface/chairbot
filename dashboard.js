@@ -42,8 +42,8 @@ app.service('DashboardService', function($http) {
 
 app.controller('PrefsController', function($scope, DashboardService) {
   $scope.isCollapsed = true;
-  $scope.limit = 25;
-  $scope.spacing = 90;
+  $scope.limit = 3;
+  $scope.spacing = 1;
   $scope.duration = 250;
 
   $scope.saveUserPrefs = function() {
@@ -58,13 +58,20 @@ app.controller('PrefsController', function($scope, DashboardService) {
 
 app.controller('DashboardController', function($scope, DashboardService) {
   $scope.data = {}
-  $scope.numSessions = 0;
+  $scope.numSessions = null;
+  $scope.currentStars = null;
 
   $scope.getUserData = function() {
     DashboardService.getUserData().then(function(data) {
       if (data.data.sessions.length > $scope.numSessions) {
+        console.log('numSessions')
         $scope.data = data.data;
+        $scope.currentStars = data.dayStars;
         $scope.numSessions = data.data.sessions.length;
+      } else if (data.data.dayStars !== $scope.currentStars) {
+        // console.log('currentStars:', $scope.currentStars, '');
+        $scope.data = data.data;
+        $scope.currentStars = data.data.dayStars;
       }
     });
   };
@@ -76,7 +83,6 @@ app.controller('DashboardController', function($scope, DashboardService) {
 app.controller('SessionController', function($scope, DashboardService) {
   // $scope.note = $scope.$parent.data.sessions[$index].text || '';
   // $scope.rate = $scope.$parent.data.sessions[$index].rating || 3;
-  // $scope.note = session.text;
   $scope.max = 5;
 
   $scope.saveNote = function(session) {
